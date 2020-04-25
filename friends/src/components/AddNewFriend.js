@@ -4,7 +4,7 @@ const AddNewFriend = () => {
     const [inputs, setInputs] = useState({
         id: 0,
         name: '',
-        age: 0,
+        age: '',
         email: ''
     })
 

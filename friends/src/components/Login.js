@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 
+import { useHistory } from 'react-router-dom'
+
+import { axiosWithAuth } from '../utils/axiosWithAuth'
+
 const Login = () => {
 
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
-    })
-
-    const [credentials, setCredentials] = useState({
-        userName: '',
-        passWord: ''
     })
 
     const handleChanges = e => {
@@ -20,8 +19,21 @@ const Login = () => {
         })
     }
 
+    const history = useHistory()
+
+    const login = e => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('/login', inputs)
+            .then(res => {
+                console.log(res)
+                localStorage.setItem('token', res.data.payload)
+                history.push('/friends')
+            })
+    }
+
     return(
-        <form>
+        <form onSubmit={login}>
             <input 
                 type='text'
                 name='username'
