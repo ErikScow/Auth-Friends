@@ -1,28 +1,33 @@
 import React, { useState } from 'react'
 
-const AddNewFriend = () => {
+import { axiosWithAuth } from '../utils/axiosWithAuth'
+
+const AddNewFriend = props => {
     const [inputs, setInputs] = useState({
-        id: 0,
+        id: new Date(),
         name: '',
         age: '',
         email: ''
     })
 
-    const [newFriend, setNewFriend] = useState({
-        userName: '',
-        passWord: ''
-    })
-
     const handleChanges = e => {
-        console.log(inputs)
         setInputs({ 
             ...inputs, 
             [e.target.name] : e.target.value
         })
     }
 
+    const add = e => {
+        e.preventDefault()
+        axiosWithAuth()
+            .post('/friends', inputs)
+            .then(res => {
+                props.setFriends(res.data)
+            })
+    }
+
     return(
-        <form>
+        <form onSubmit={add}>
             <input 
                 type='text'
                 name='name'
@@ -44,7 +49,7 @@ const AddNewFriend = () => {
                 placeholder='email'
                 onChange={handleChanges}
             />
-            <button type='submit'>Login</button>
+            <button type='submit'>Add Friend</button>
         </form>
     )
 }

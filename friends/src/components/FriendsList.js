@@ -17,7 +17,7 @@ const FriendsList = () => {
 
     return(
         <div>
-            <AddNewFriend />
+            <AddNewFriend setFriends={setFriends}/>
             {friends.map( friend => {
                 return (
                     <div key={friend.id}>
