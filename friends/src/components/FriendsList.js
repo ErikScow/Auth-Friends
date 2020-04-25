@@ -1,8 +1,11 @@
 import React from 'react'
 
-const FriendsList = () => {
+import AddNewFriend from './AddNewFriend'
+
+const FriendsList = props => {
     return(
         <div>
+            <AddNewFriend />
             
         </div>
     )
